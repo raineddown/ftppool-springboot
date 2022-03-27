@@ -45,7 +45,7 @@ public final class FtpUtil {
 	private static boolean changeWorkingDirectory(FTPClient ftpClient,
 			String path) {
 		boolean rst = false;
-		/*该部分为逐级创建*/
+		//该部分为逐级创建
 		String[] split = path.split(Matcher.quoteReplacement(File.separator));
 		StringBuilder dir = new StringBuilder();
 		for (String str : split) {
