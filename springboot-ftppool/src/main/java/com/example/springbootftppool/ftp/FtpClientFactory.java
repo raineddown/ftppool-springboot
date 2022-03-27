@@ -70,9 +70,9 @@ public class FtpClientFactory extends BasePooledObjectFactory<FTPClient> {
 	}
 
 	@Override
-	public void destroyObject(PooledObject<FTPClient> p) throws Exception {
+	public void destroyObject(PooledObject<FTPClient> p) {
 		closeCon(p.getObject());
-		logger.info("------ftp【{}】连接销毁成功！", config.getHost());
+		logger.info("ftp【{}】连接销毁成功！", config.getHost());
 	}
 
 	@Override
@@ -108,9 +108,12 @@ public class FtpClientFactory extends BasePooledObjectFactory<FTPClient> {
 		}
 	}
 
+	/**
+	 * ftp连接钝化，还连接时将ftpclient工作空间置根目录
+	 */
 	@Override
 	public void passivateObject(PooledObject<FTPClient> p) throws Exception {
-//		FTPClient client = p.getObject();
-//		client.changeWorkingDirectory();
+		FTPClient client = p.getObject();
+		client.changeWorkingDirectory("/");
 	}
 }
